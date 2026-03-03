@@ -6,7 +6,7 @@
 	url = https://github.com/astra-sim/astra-network-analytical.git
 [submodule "extern/remote_memory_backend/analytical"]
 	path = extern/remote_memory_backend/analytical
-	url = https://github.com/astra-sim/astra-memory-analytical.git
+	url = https://github.com/Bwoah-Kimi/astra-memory-analytical.git
 [submodule "extern/helper/fmt"]
 	path = extern/helper/fmt
 	url = https://github.com/fmtlib/fmt.git
