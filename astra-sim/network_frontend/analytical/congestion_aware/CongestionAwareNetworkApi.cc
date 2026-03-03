@@ -77,3 +77,9 @@ int CongestionAwareNetworkApi::sim_send(void* const buffer,
     // return
     return 0;
 }
+
+double CongestionAwareNetworkApi::get_link_bandwidth(int src, int dest) {
+    // NOTE: This is a dummy implementation to satisfy the compiler.
+    // The actual implementation should be based on the congestion-aware model's topology.
+    return -1.0;
+}

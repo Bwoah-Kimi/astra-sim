@@ -11,15 +11,16 @@ LICENSE file in the root directory of this source tree.
 
 namespace AstraSim {
 
-class Workload;
+  class Workload;
 
-class WorkloadLayerHandlerData : public BasicEventHandlerData, public MetaData {
+  class WorkloadLayerHandlerData : public BasicEventHandlerData, public MetaData {
   public:
     int sys_id;
     Workload* workload;
     uint64_t node_id;
+    int block_id = -1;  // For block-level optimization
     WorkloadLayerHandlerData();
-};
+  };
 
 }  // namespace AstraSim
 

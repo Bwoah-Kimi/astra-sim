@@ -55,8 +55,8 @@ void PacketBundle::call(EventType event, CallData* data) {
         // this->delay[ns], size[bytes] local_mem_bw[bytes/s]
         this->delay = static_cast<uint64_t>(static_cast<double>(size) /
                                             sys->local_mem_bw * 1e9)  // write
-                      + static_cast<uint64_t>(static_cast<double>(size) /
-                                              sys->local_mem_bw * 1e9)  // read
+//                      + static_cast<uint64_t>(static_cast<double>(size) /
+//                                              sys->local_mem_bw * 1e9)  // read
                       + static_cast<uint64_t>(static_cast<double>(size) /
                                               sys->local_mem_bw * 1e9);  // read
         sys->try_register_event(this, EventType::CommProcessingFinished, data,

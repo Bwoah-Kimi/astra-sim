@@ -34,14 +34,20 @@ class CongestionAwareNetworkApi final : public CommonNetworkApi {
     /**
      * Implement sim_send of AstraNetworkAPI.
      */
-    int sim_send(void* buffer,
-                 uint64_t count,
-                 int type,
-                 int dst,
-                 int tag,
-                 sim_request* request,
-                 void (*msg_handler)(void* fun_arg),
-                 void* fun_arg) override;
+    int sim_send(
+        void* buffer,
+        uint64_t count,
+        int type,
+        int dst,
+        int tag,
+        sim_request* request,
+        void (*msg_handler)(void* fun_arg),
+        void* fun_arg) override;
+
+    /**
+     * Implement get_link_bandwidth of AstraNetworkAPI.
+     */
+    double get_link_bandwidth(int src, int dest) override;
 
   private:
     /// topology

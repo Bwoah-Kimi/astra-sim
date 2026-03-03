@@ -5,6 +5,7 @@ LICENSE file in the root directory of this source tree.
 
 #include "astra-sim/system/astraccl/native_collectives/logical_topology/RingTopology.hh"
 #include "astra-sim/common/Logging.hh"
+#include "astra-sim/system/Sys.hh" // Include Sys.hh for the definition
 
 #include <cassert>
 #include <iostream>
@@ -12,7 +13,12 @@ LICENSE file in the root directory of this source tree.
 using namespace std;
 using namespace AstraSim;
 
-RingTopology::RingTopology(Dimension dimension, int id, std::vector<int> NPUs)
+RingTopology::RingTopology(
+    Dimension dimension,
+    int id,
+    std::vector<int> NPUs,
+    bool is_uniform,
+    double bandwidth)
     : BasicLogicalTopology(BasicLogicalTopology::BasicTopology::Ring) {
     name = "local";
     if (dimension == Dimension::Vertical) {
@@ -25,6 +31,32 @@ RingTopology::RingTopology(Dimension dimension, int id, std::vector<int> NPUs)
     this->dimension = dimension;
     this->offset = -1;
     this->index_in_ring = -1;
+    this->is_uniform = is_uniform;
+    this->uniform_bandwidth = bandwidth;
+
+    std::string npu_ids_str;
+    for (int npu_id : NPUs) {
+        npu_ids_str += std::to_string(npu_id) + " ";
+    }
+
+    std::string bandwidth_info;
+    if (NPUs.size() <= 1) {
+        bandwidth_info = "N/A";
+    } else if (is_uniform) {
+        bandwidth_info = "Uniform " + std::to_string(bandwidth) + " GB/s";
+    } else {
+        bandwidth_info = "Non-uniform";
+    }
+
+    LoggerFactory::get_logger("system::topology::RingTopology")
+        ->info(
+            "Custom Ring Created: id={}, dimension={}, nodes={}, members=[{}], bandwidth=[{}]",
+            id,
+            name,
+            total_nodes_in_ring,
+            npu_ids_str,
+            bandwidth_info);
+
     for (int i = 0; i < total_nodes_in_ring; i++) {
         id_to_index[NPUs[i]] = i;
         index_to_id[i] = NPUs[i];
@@ -32,15 +64,9 @@ RingTopology::RingTopology(Dimension dimension, int id, std::vector<int> NPUs)
             index_in_ring = i;
         }
     }
-
-    LoggerFactory::get_logger("system::topology::RingTopology")
-        ->info("custom ring, id: {}, dimension: {} total nodes in ring: {} "
-               "index in ring: {} total nodes in ring {}",
-               id, name, total_nodes_in_ring, index_in_ring,
-               total_nodes_in_ring);
-
     assert(index_in_ring >= 0);
 }
+
 RingTopology::RingTopology(Dimension dimension,
                            int id,
                            int total_nodes_in_ring,

@@ -27,6 +27,14 @@ StreamBaseline::StreamBaseline(Sys* owner,
 void StreamBaseline::init() {
     initialized = true;
     last_init = Sys::boostedTick();
+    
+    // Print timing info when initializing stream phase
+    // std::cout << "[TIMING] StreamPhaseInit: sys_id=" << owner->id 
+    //           << ", tick=" << Sys::boostedTick() 
+    //           << ", stream_id=" << stream_id
+    //           << ", phase_number=" << steps_finished + 1
+    //           << ", queue_id=" << current_queue_id << std::endl;
+    
     if (!my_current_phase.enabled) {
         return;
     }

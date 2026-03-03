@@ -11,6 +11,7 @@ LICENSE file in the root directory of this source tree.
 #include <vector>
 
 #include "astra-sim/system/Common.hh"
+#include "astra-sim/common/AstraNetworkAPI.hh"
 
 namespace AstraSim {
 
@@ -18,7 +19,11 @@ class Sys;
 class CollectivePlan;
 class CommunicatorGroup {
   public:
-    CommunicatorGroup(int id, std::vector<int> involved_NPUs, Sys* generator);
+    CommunicatorGroup(
+        int id,
+        std::vector<int> involved_NPUs,
+        Sys* generator,
+        AstraNetworkAPI* comm_NI);
     CollectivePlan* get_collective_plan(ComType comm_type);
     void set_id(int id);
     ~CommunicatorGroup();
@@ -29,6 +34,7 @@ class CommunicatorGroup {
   private:
     int id;
     Sys* generator;
+    AstraNetworkAPI* comm_NI;
     std::map<ComType, CollectivePlan*> comm_plans;
 };
 

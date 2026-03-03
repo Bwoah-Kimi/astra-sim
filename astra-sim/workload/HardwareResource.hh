@@ -30,14 +30,25 @@ class HardwareResource {
     uint32_t num_in_flight_cpu_ops;
     uint32_t num_in_flight_gpu_comp_ops;
     uint32_t num_in_flight_gpu_comm_ops;
+    uint32_t num_in_flight_gpu_p2p_comms;
+    uint32_t num_in_flight_gpu_remote_mem;
 
     uint64_t num_cpu_ops;
     uint64_t num_gpu_ops;
     uint64_t num_gpu_comms;
 
-    uint64_t tics_cpu_ops;
-    uint64_t tics_gpu_ops;
-    uint64_t tics_gpu_comms;
+    uint64_t tics_cpu_ops = 0;
+    uint64_t tics_gpu_ops = 0;
+    uint64_t tics_gpu_comms = 0;
+    uint64_t tics_gpu_p2p_comms = 0;
+    uint64_t tics_gpu_remote_mem = 0;
+    uint64_t tics_gpu_idle = 0;
+    uint64_t last_gpu_busy_finish_time = 0;
+
+    bool is_gpu_busy() const;
+
+  private:
+    uint32_t total_in_flight_gpu_ops = 0;
 };
 
 }  // namespace AstraSim
