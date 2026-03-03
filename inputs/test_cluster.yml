@@ -1,0 +1,10 @@
+# [dp, tp, pp, cp, ep]
+topology: [ Ring, Ring, Ring, Ring ]
+npus_count: [ 2, 8, 2, 2 ]
+bandwidth: [ 300, 1000, 300, 50 ]  # GB/s
+latency: [ 300.0, 10.0, 300.0, 300.0 ]  # ns
+
+# topology: [ Ring, Ring, Ring, Ring ]
+# pus_count: [ 8, 2, 2, 2 ]
+# bandwidth: [ 1000 ]  # GB/s
+# latency: [ 300.0 ]  # ns

@@ -1,0 +1,41 @@
+{
+    "single-device-simulation": 1,
+    "scheduling-policy": "LIFO",
+    "endpoint-delay": 10,
+    "active-chunks-per-dimension": 1,
+    "preferred-dataset-splits": 4,
+    "all-reduce-implementation": [
+        "ring",
+        "ring",
+        "ring",
+        "ring"
+    ],
+    "all-gather-implementation": [
+        "ring",
+        "ring",
+        "ring",
+        "ring"
+    ],
+    "reduce-scatter-implementation": [
+        "ring",
+        "ring",
+        "ring",
+        "ring"
+    ],
+    "all-to-all-implementation": [
+        "ring",
+        "ring",
+        "ring",
+        "ring"
+    ],
+    "collective-optimization": "localBWAware",
+    "local-mem-bw": 4914,
+    "boost-mode": 0,
+    "roofline-enabled": 1,
+    "peak-perf": 262,
+    "scalesim-enabled": 1,
+    "num-arrays": 8,
+    "array-height": 16,
+    "array-width": 16,
+    "sram-size": 32768
+}
