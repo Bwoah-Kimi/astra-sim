@@ -44,8 +44,8 @@ done
 # ---- Required runtime environment for SCALE-Sim integration in Workload.cc ----
 # Allow callers to override these paths, but always export concrete values.
 export ASTRA_PYTHON_BIN="${ASTRA_PYTHON_BIN:-python3}"
-export ASTRA_SCALESIM_INPUT_DIR="${ASTRA_SCALESIM_INPUT_DIR:-${PROJECT_ROOT}/arch_simulation/scalesim_inputs}"
-export ASTRA_SCALESIM_OUTPUT_DIR="${ASTRA_SCALESIM_OUTPUT_DIR:-${PROJECT_ROOT}/arch_simulation/scalesim_outputs}"
+export ASTRA_SCALESIM_INPUT_DIR="${ASTRA_SCALESIM_INPUT_DIR:-${PROJECT_ROOT}/arch_simulation/runtime_luts/scalesim/inputs}"
+export ASTRA_SCALESIM_OUTPUT_DIR="${ASTRA_SCALESIM_OUTPUT_DIR:-${PROJECT_ROOT}/arch_simulation/runtime_luts/scalesim/outputs}"
 export ASTRA_SCALESIM_LAYOUT_PATH="${ASTRA_SCALESIM_LAYOUT_PATH:-${ASTRA_SCALESIM_INPUT_DIR}/scalesim_layout.csv}"
 export ASTRA_SCALESIM_LUT_PATH="${ASTRA_SCALESIM_LUT_PATH:-${ASTRA_SCALESIM_INPUT_DIR}/scalesim_lut.csv}"
 
