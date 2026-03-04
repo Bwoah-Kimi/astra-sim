@@ -20,6 +20,18 @@ endif()
 # Setup project
 project(AstraSim)
 
+# ==============================================================================
+# ======================== START OF MODIFICATIONS ==============================
+# ==============================================================================
+
+# Add an option to control the build of the cache generator
+option(BUILD_CACHE_GENERATOR "Build the cache generator tool" OFF)
+set (CXXOPTS_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/extern/helper/cxxopts")
+
+# ==============================================================================
+# ========================= END OF MODIFICATIONS ===============================
+# ==============================================================================
+
 # Add libraries.
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/extern/helper/fmt")
 option(SPDLOG_FMT_EXTERNAL ON) # override default option for spdlog.
@@ -75,6 +87,8 @@ target_include_directories(AstraSim PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/extern/gr
 target_include_directories(AstraSim PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/extern/graph_frontend/chakra/schema/protobuf)
 target_include_directories(AstraSim PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/extern/graph_frontend/chakra/src/third_party/utils)
 target_include_directories(AstraSim PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/extern/helper/)
+target_include_directories(AstraSim PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/astra-sim/network_frontend/analytical/include)
+target_include_directories(AstraSim PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/extern/network_backend/analytical/include)
 
 # Same as above.
 if(DEFINED ENV{PROTOBUF_FROM_SOURCE} AND "$ENV{PROTOBUF_FROM_SOURCE}" STREQUAL "True")
@@ -89,3 +103,49 @@ set_target_properties(AstraSim
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/../lib/
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/../lib/
 )
+
+# ==============================================================================
+# ======================== START OF MODIFICATIONS ==============================
+# ==============================================================================
+
+# if(BUILD_CACHE_GENERATOR)
+#     message(STATUS "Building cache_generator tool")
+
+#     # Define the source file for the cache_generator tool.
+#     add_executable(cache_generator
+#         "tools/cache_generator.cpp"
+#     )
+
+#     # Link the cache_generator executable against our AstraSim library.
+#     # This provides the compiled object files.
+#     target_link_libraries(cache_generator PRIVATE AstraSim)
+
+#     # Add ALL necessary include directories. This is crucial for the compiler
+#     # to find header files like "spdlog_setup/conf.h".
+#     # We will mirror the exact same include paths that the AstraSim library uses.
+#     target_include_directories(cache_generator PRIVATE
+#         ${CMAKE_CURRENT_SOURCE_DIR}
+#         ${CMAKE_CURRENT_SOURCE_DIR}/extern/graph_frontend/chakra/
+#         ${CMAKE_CURRENT_SOURCE_DIR}/extern/graph_frontend/chakra/schema/protobuf
+#         ${CMAKE_CURRENT_SOURCE_DIR}/extern/graph_frontend/chakra/src/third_party/utils
+#         ${CMAKE_CURRENT_SOURCE_DIR}/extern/helper/   # This is the key path for spdlog_setup
+#         ${Protobuf_INCLUDE_DIR}
+#         ${CXXOPTS_INCLUDE_DIR} # The path for cxxopts.hpp
+#     )
+#     if(DEFINED ENV{PROTOBUF_FROM_SOURCE} AND "$ENV{PROTOBUF_FROM_SOURCE}" STREQUAL "True")
+#         target_include_directories(cache_generator PRIVATE ${Protobuf_INCLUDE_DIRS})
+#     endif()
+    
+#     # We still need to link against stdc++fs for std::filesystem on some compilers
+#     target_link_libraries(cache_generator PRIVATE stdc++fs)
+
+#     # Set the output directory for the executable
+#     set_target_properties(cache_generator
+#         PROPERTIES
+#         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin/
+#     )
+# endif()
+
+# ==============================================================================
+# ========================= END OF MODIFICATIONS ===============================
+# ==============================================================================
